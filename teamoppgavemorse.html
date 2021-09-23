@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #translation {
+            font-size: 40px;
+            /* border: black dashed 2px; */
+            /* width: 500px; */
+        }
+        
+        input {
+            margin-bottom: 30px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        #youSaid {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id='app'></div>
+    <script>
+        //model
+        // const morseCodeArray = [
+        //     ' ',
+        //     '.-',
+        //     '-...',
+        //     '-.-.',
+        //     '-..',
+        //     '.',
+        //     '..-.',
+        //     '--.',
+        //     '....',
+        //     '..',
+        //     '.---',
+        //     '-.-',
+        //     '.-..',
+        //     '--',
+        //     '-.',
+        //     '---',
+        //     '.--.',
+        //     '--.-',
+        //     '.-.',
+        //     '...',
+        //     '-',
+        //     '..-',
+        //     '...-',
+        //     '.--',
+        //     '-..-',
+        //     '-.--',
+        //     '--..',
+        //     '·−·−',
+        //     '−−−·',
+        //     '·−−·−',
+        // ]; //4 siste er æ, ø og å, space
+        const alfabetet = [{
+            bokstav: ' ',
+            morse: '   ‍   ‍   ‍   ', //har spesial mellomrom
+            lyd: '  '
+        }, {
+            bokstav: 'A',
+            morse: '.-',
+            lyd:'http://www.k5cm.com/audio/w1aw-nov-09-80m-snip.wav'
+        }, {
+            bokstav: 'B',
+            morse: '-...',
+            lyd:'LS2-beacon.wav'
+        }, {
+            bokstav: 'C',
+            morse: '-.-.',
+            lyd: 'C.mp3'
+        }, {
+            bokstav: 'D',
+            morse: '-..',
+            lyd: 'D.mp3'
+        }, {
+            bokstav: 'E',
+            morse: '.',
+            lyd: 'E.mp3'
+        }, {
+            bokstav: 'F',
+            morse: '..-.',
+            lyd: 'F.mp3'
+        }, {
+            bokstav: 'G',
+            morse: '--.',
+            lyd: 'G.mp3'
+        }, {
+            bokstav: 'H',
+            morse: '....',
+            lyd: 'H.mp3'
+        }, {
+            bokstav: 'I',
+            morse: '..',
+            lyd: 'I.mp3'
+        }, {
+            bokstav: 'J',
+            morse: '.---',
+            lyd: 'J.mp3'
+        }, {
+            bokstav: 'K',
+            morse: '-.-',
+            lyd: 'K.mp3'
+        }, {
+            bokstav: 'L',
+            morse: '.-..',
+            lyd: 'L.mp3'
+        }, {
+            bokstav: 'M',
+            morse: '--',
+            lyd: 'M.mp3'
+        }, {
+            bokstav: 'N',
+            morse: '-.',
+            lyd: 'N.mp3'
+        }, {
+            bokstav: 'O',
+            morse: '---',
+            lyd: 'O.mp3'
+        }, {
+            bokstav: 'P',
+            morse: '.--.',
+            lyd: 'P.mp3'
+        }, {
+            bokstav: 'Q',
+            morse: '--.-',
+            lyd: 'Q.mp3'
+        }, {
+            bokstav: 'R',
+            morse: '.-.',
+            lyd: 'R.mp3'
+        }, {
+            bokstav: 'S',
+            morse: '...',
+            lyd: 'S.mp3'
+        }, {
+            bokstav: 'T',
+            morse: '-',
+            lyd: 'T.mp3'
+        }, {
+            bokstav: 'U',
+            morse: '..-',
+            lyd: 'U.mp3'
+        }, {
+            bokstav: 'V',
+            morse: '...-',
+            lyd: 'V.mp3'
+        }, {
+            bokstav: 'W',
+            morse: '.--',
+            lyd: 'W.mp3'
+        }, {
+            bokstav: 'X',
+            morse: '-..-',
+            lyd: 'X.mp3'
+        }, {
+            bokstav: 'Y',
+            morse: '-.--',
+            lyd: 'Y.mp3'
+        }, {
+            bokstav: 'Z',
+            morse: '--..',
+            lyd: 'Z.mp3'
+        }, {
+            bokstav: 'Æ',
+            morse: '.-.-',
+            lyd: 'Æ.mp3'
+        }, {
+            bokstav: 'Ø',
+            morse: '---.',
+            lyd: 'Ø.mp3'
+        }, {
+            bokstav: 'Å',
+            morse: '.--.-',
+            lyd: 'Å.mp3'
+        }, ];
+
+
+        let inputValue = '';
+        let nyMorseTekst = '';
+        let hidden = "hidden";
+        let lydIndex = [];
+        let buttonIndex = [];
+
+
+
+        //view
+        show();
+
+        function show() {
+            let html = '';
+
+
+            html += `
+            Hva vil du si?
+            <input type="text" oninput="inputValue = this.value"/><button onclick='oversett()'>Oversett</button>  
+            <br><div id="youSaid" class="${hidden}">Du sa:
+            <br>"<b>${inputValue}</b>"</div>
+            <br>Oversettelse:
+            <br><div id="translation">${nyMorseTekst}</div>
+            <div class="${hidden}">Spill av:</div>
+            `;
+
+            for (let i = 0; i < lydIndex.length; i++) {
+                html += `
+            <button onclick='play(${i})'>${buttonIndex[i]}</button>
+              `;
+            }
+
+            document.getElementById('app').innerHTML = html;
+        };
+
+
+
+        //controllerererereren
+
+
+        function oversett() {
+            hidden = "";
+            nyMorseTekst = '';
+            lydIndex = [];
+            buttonIndex = [];
+            let sentence = inputValue.toUpperCase();
+            for (let index = 0; index < sentence.length; index++) {
+                let søketekst = sentence[index];
+
+                for (let index = 0; index < alfabetet.length; index++) {
+                    if (alfabetet[index].bokstav == søketekst) {
+                        nyMorseTekst += alfabetet[index].morse + ' ';
+                        lydIndex.push(alfabetet[index].lyd);
+                        buttonIndex.push(alfabetet[index].bokstav);
+                    };
+                };
+            };
+
+            show();
+        }
+
+        function play(lydfil) {
+            new Audio(lydIndex[lydfil]).play();
+            show();
+
+            // var audio = new Audio("folder_name/audio_file.mp3");
+            // audio.play();
+        }
+    </script>
+
+</body>
+
+</html>

@@ -7,25 +7,50 @@
   <title>Document</title>
 </head>
 <body>
- <div onclick="person.bio()"> test</div>
- <div onclick="person.greeting()"> test</div>
+
+<div onclick="person[0].bio()"> test</div>
+ <div onclick="person[1].greeting()"> test</div>
 
 <script>
-  const person = {
-    name : {
-      first: 'Bob',
-      last: 'Smith'
-    },
+  const person = [
+    {name : {
+            first: 'Bob', 
+            last: 'Smith'
+             },
     age: 32,
     gender: 'male',
     interests: ['music', 'skiing'],
     bio: function() {
-      alert(this.name[0] + ' ' + this.name[1] + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
-    },
+      alert(this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+      },
     greeting: function() {
       alert('Hi! I\'m ' + this.name[0] + '.');
-    }
-  };
+      }
+    },
+    {name : {
+            first: 'Bb',
+            last: 'Sith'
+            },
+    age: 35,
+    gender: 'male',
+    interests: ['music', 'skiing'],
+    bio: function() {
+      alert(this.name[0] + ' ' + this.name[1] + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+      },
+    greeting: function() {
+      alert('Hi! I\'m ' + this.name.first + '.');
+      alert(`Hi! I\'m ${this.name[0]}.`);
+      console.log(person[1].name.first);
+      
+      }
+  }
+  ];
+
+
 </script>
+
+
+
+
 </body>
 </html>

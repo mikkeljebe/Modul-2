@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id='app'></div>
+
+<script>
+
+    // quote generator
+
+//hielpevariabler
+const app = document.getElementById ('app');
+
+// Model
+let randomName = '';
+let randomQuote = '';
+
+let quotes = [
+  { 
+    name: 'Kristoffer',
+    quote:  "Its not the fart that kills it's the smell"
+  },
+  {
+    name: "Marius",
+    quote: "Isn't the smell a part of the fart"
+  },
+  {
+    name: "jayden smith",
+    quote: ""
+  },
+
+  ];
+
+//view
+show()
+function show() {
+  let html = ``;
+  
+for (let i = 0; i < quotes.length; i++){
+  html += `<li>
+  ${quotes[i].name} <br> 
+  ${quotes[i].quote}
+  <li> <br>
+    
+    `;
+  }
+  html += `<button onclick='getRandomQuote()'>Klikk tilfeldig </button> <br>
+  ${randomName} : <i>${randomQuote}</i>`;
+
+  
+  app.innerHTML = html; 
+
+}
+
+//controller
+
+function getRandomQuote(){
+  let random = Math.floor(Math.random() * quotes.length);
+  randomName = quotes[random].name;
+  randomQuote = quotes[random].quote;
+  
+
+  show();
+
+}
+
+
+  </script>
+</body>
+
+
+</html>
