@@ -20,7 +20,7 @@ const person = [
       last: 'Smith'
       },
     age: 32,
-    gender: 'female',
+    gender: 'male',
     interests: ['music', 'skiing'],
     bio: function() {
       alert(this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
@@ -42,35 +42,37 @@ const person = [
     greeting: function() {
       alert('Hi! I\'m ' + this.name.first + '.');
       alert(`Hi! I\'m ${this.name[0]}.`);
-      console.log(person[1].name.first);
+     
       
       },
   }
   ];
 
-  let html ='';
+  let html = '';
   let currentSearch = '';
+  const app = document.getElementById('app');
   
   //view
-show();
-function show() {
-  const app = document.getElementById('app');
-  html = søk();
+  show();
+  function show() {
+  søk();
 };
 
 function søk(){
+  html ='';
 	html += `
 <div class="content">
-<button onclick="play()">${person[0].name.first} ${person[0].name.last}</button>
-<button onclick="play()">${person[0].name.first} ${person[0].name.last}</button>
+<div onclick="play()">${person[0].name.first} ${person[0].name.last}</div>
+<div onclick="play()">${person[1].name.first} ${person[1].name.last}</div><br>
 <button onclick="play('Under60')">Alle under 60 år</button>
 <button onclick="play('menn')">Finn mennene</button>
 <button onclick="play('damer')">Finn damene</button>  
 <button onclick="play('jnkink')">Feil</button>  
   </div>
 	`;
-console.log(html);
 
+
+  
 
   switch (currentSearch) {
   case 'Under60':
@@ -82,11 +84,16 @@ console.log(html);
   case 'damer':
     dameSøk();
     break;
-  default:
+  default: 
     noPageFound();
     break;
+
+  
 };
 app.innerHTML = html;
+
+
+
 };
 
  //controller
@@ -97,19 +104,18 @@ function play(x){
 
 
 function manneSøk(){
-  
-  
 let nyarr = person.filter(p => p.gender == 'male');
 for (let i = 0; i < nyarr.length; i++) {
-  let resultat = nyarr[i].name.first;
+  let resultat = nyarr[i].name.first && nyarr[i].name.last;
   html += `<div>${resultat}</div>`;
+  console.log(resultat);
   
 }; 
 
 };
 
 function dameSøk(){
-  html = '';
+  
 let nyarr = person.filter(p => p.gender == 'female');
 for (let i = 0; i < nyarr.length; i++) {
   let resultat = nyarr[i].name.first;
@@ -119,21 +125,25 @@ for (let i = 0; i < nyarr.length; i++) {
 };
 
 function under60(){
-  html = '';
+  
 let nyarr = person.filter(p => p.age < 60);
 for (let i = 0; i < nyarr.length; i++) {
   let resultat = nyarr[i].name.first;
   html += `<div>${resultat}</div>`;
+  console.log(resultat);
+  
 }
+
 
 }; 
 
-function noPageFound() {
+function noPageFound(currentSearch) {
   html += `
-  404! Page not found! Insert sad kitty here
+  
 `;
 
 }
+
 
 
 </script>
