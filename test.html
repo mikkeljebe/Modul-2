@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<svg width="1200" height="800">
+</svg>
+    <script>
+        class Box {
+            constructor() {
+                this._color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                this._x = Math.floor(Math.random() * 600);
+                this._y = Math.floor(Math.random() * 400);
+                this._width = 100 + Math.floor(Math.random() * 500);
+                this._height = 100 + Math.floor(Math.random() * 300);
+            }
+
+            getX() {
+                return this._x;
+            }
+
+            getY() {
+                return this._y;
+            }
+
+            getWidth() {
+                return this._width;
+            }
+
+            getHeight() {
+                return this._height;
+            }
+
+            getColor() {
+                return this._color;
+            }
+        }
+
+        class BoxView {
+            constructor(box) {
+                this._svg = document.getElementsByTagName('svg')[0];
+                this._box = box;
+            }
+
+            show() {
+                var html = '<rect '
+                    + 'x="' + this._box.getX() + '" '
+                    + 'y="' + this._box.getY() + '" '
+                    + 'width="' + this._box.getWidth() + '" '
+                    + 'height="' + this._box.getHeight() + '" '
+                    + 'fill="' + this._box.getColor() + '" '
+                    + '/>';
+                console.log(html);
+                this._svg.innerHTML = html;
+            }
+        }
+
+        var box = new Box();
+        var boxView = new BoxView(box);
+        boxView.show();
+    </script>
+</body>
+</html>

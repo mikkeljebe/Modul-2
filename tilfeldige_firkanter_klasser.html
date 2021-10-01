@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tilfeldige firkanter med klasser</title>
+</head>
+<body>
+  <svg width="1200" height="800">
+  </svg>
+
+
+  <script>
+    class Box {
+        constructor() {
+            this._color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            this._x = Math.floor(Math.random() * 600);
+            this._y = Math.floor(Math.random() * 400);
+            this._width = 100 + Math.floor(Math.random() * 500);
+            this._height = 100 + Math.floor(Math.random() * 300);
+        }
+
+        createRect(){
+          let oneRect = `<rect width="${this._width}" height="${this._height}" x="${this._x}" y="${this._y}" fill="${this._color}" >`
+          return oneRect;
+        }
+    }
+
+    class BoxView {
+        constructor(box) {
+            this._svg = document.getElementsByTagName('svg')[0];
+            this._box = box;
+        }
+
+        show() {
+          this._svg.innerHTML += this._box.createRect();
+        }
+    }
+
+    class BoxSet {
+      constructor(num){
+        this._array = []
+        let randNum = num; //Math.ceil(Math.random() * 10)
+        for (let i = 0; i < randNum; i++) {
+          this._array.push(new Box())
+        }
+      }
+      getBoxes(){ 
+        return this._array;
+      }
+
+    }
+
+    var box = new Box();
+    var boxView = new BoxView(box);
+    
+    boxView.show();
+   
+</script>
+
+
+</body>
+</html>
+
+

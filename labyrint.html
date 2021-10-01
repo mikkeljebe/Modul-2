@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+    border-spacing: 0;
+    }
+
+    td {
+        background-color: rgb(192, 192, 192);
+        padding: 0;
+        
+    }
+
+    td.room {
+        width: 40px;
+        height: 40px;
+    }
+
+    td.wall {
+        background-color: black;
+    }
+
+    td.noWall {
+        background-color: white;
+    }
+
+    td.small {
+        width: 10px;
+    }
+
+    td.wide {
+        width: 40px;
+    }
+
+    td.high {
+        height: 40px;
+    }
+
+    td.low {
+        height: 10px;
+    }
+  </style>
+</head>
+
+
+
+<body>
+
+  <table id="maze"></table>
+  
+  <script>
+   //model
+    var mazeView = document.getElementById('maze');
+    let mazeModel;
+    let size = 8;
+    let numbers = size + size +1;
+    let totalNumberOfWalls = size*10;
+
+    //View
+initModel();
+updateView();
+
+  function updateView(){
+    mazeView.innerHTML = '';
+    for (var rowCounter = 0; rowCounter < numbers; rowCounter++) {
+        var viewRow = mazeView.insertRow();
+        var modelRow = mazeModel.rows[rowCounter];
+
+        for (var cellCounter = 0; cellCounter < numbers; cellCounter++) {
+            var viewCell = viewRow.insertCell();
+            var modelCell = modelRow.cells[cellCounter];
+            
+            if (modelCell.isHigh && modelCell.isWide) {viewCell.classList.add('room');} 
+            else {viewCell.addEventListener("click", toggleWall)};
+            if (modelCell.isWall) {viewCell.classList.add('wall');}
+            if (modelCell.isHigh) {viewCell.classList.add('high');} else {viewCell.classList.add('low')}
+            if (modelCell.isWide) {viewCell.classList.add('wide');} else {viewCell.classList.add('small')}
+        }            
+      }
+  };
+
+//Controller
+  function initModel() {
+            mazeModel = {};
+            mazeModel.rows = [];
+            
+          for (let rowCounter = 0; rowCounter< numbers; rowCounter++){
+              let newRow = {};
+              newRow.cells =[];
+            
+            for (let cellCounter = 0; cellCounter < numbers; cellCounter++) {
+              let newCell = {};
+              
+
+            newCell.isWall = false;
+            if (rowCounter %2 == 0) {newCell.isHigh = false;}
+            if (rowCounter %2 == 1) {newCell.isHigh = true;}
+            if (cellCounter %2 == 0) {newCell.isWide = false;}
+            if (cellCounter %2 == 1) {newCell.isWide = true;}
+
+            if (rowCounter == 0) {newCell.isWall = true}
+            if (rowCounter == numbers -1) {newCell.isWall = true}
+            if (cellCounter == numbers -1) {newCell.isWall = true}
+            if (cellCounter == 0) {newCell.isWall = true}
+            if (!newCell.isWide && !newCell.isHigh) {newCell.isWall = true};
+            
+            newRow.cells.push(newCell);
+          } 
+          mazeModel.rows.push(newRow);
+        }      
+        // console.log(mazeModel.rows[0].cells[0].isWall);
+        placeWalls();
+        randomOpeningLeft();
+    }
+
+     //tilfeldig åpning i wall
+    function randomOpeningLeft(){
+        let randomOddRowIndexLeft = Math.floor( Math.random() * (size + size -1) / 2 ) * 2 +1; 
+        let randomOddRowIndexRight = Math.floor( Math.random() * (size + size -1) / 2 ) * 2 +1; 
+        // console.log(randomOddRowIndexRight);
+        
+         mazeModel.rows[randomOddRowIndexLeft].cells[0].isWall = false;
+         mazeModel.rows[randomOddRowIndexRight].cells[numbers-1].isWall = false;
+     };
+          
+    function placeWalls(){
+            for (var wallCount = 0; wallCount < totalNumberOfWalls; wallCount++) {
+                var rowIndex = Math.floor(Math.random() * numbers);
+                var columnIndex = Math.floor(Math.random() * numbers);
+                var modelCell = mazeModel.rows[rowIndex].cells[columnIndex];
+                if (!modelCell.isWide) {modelCell.isWall = true};
+                if (!modelCell.isHigh) {modelCell.isWall = true};
+                
+            }
+    };
+
+
+    //Klikk toggle vegg
+    function toggleWall(aMouseEvent){
+      var rowIndex = aMouseEvent.srcElement.parentElement.sectionRowIndex;
+      var columnIndex = aMouseEvent.srcElement.cellIndex;
+      var modelCell = mazeModel.rows[rowIndex].cells[columnIndex];  
+      if ((modelCell.isWall == false) ? modelCell.isWall = true : modelCell.isWall = false);
+      updateView()
+    };
+
+
+  </script>
+  
+</body>
+</html>
