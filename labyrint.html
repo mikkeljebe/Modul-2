@@ -50,19 +50,19 @@
 
 
 <body>
-
+  <label for="rows">Størrelse (mellom 1 og 20):</label>
+  <input type="number" min="1" max="20" name="rows"oninput="initModel(parseInt(this.value)), updateView()" />
   <table id="maze"></table>
   
   <script>
    //model
     var mazeView = document.getElementById('maze');
-    let mazeModel;
-    let size = 8;
-    let numbers = size + size +1;
-    let totalNumberOfWalls = size*10;
+    let mazeModel = {};
+    let numbers;
+    
 
     //View
-initModel();
+initModel(8);
 updateView();
 
   function updateView(){
@@ -85,9 +85,10 @@ updateView();
   };
 
 //Controller
-  function initModel() {
-            mazeModel = {};
-            mazeModel.rows = [];
+  function initModel(size) {
+      numbers = size + size +1
+      
+      mazeModel.rows = [];
             
           for (let rowCounter = 0; rowCounter< numbers; rowCounter++){
               let newRow = {};
@@ -113,23 +114,24 @@ updateView();
           } 
           mazeModel.rows.push(newRow);
         }      
-        // console.log(mazeModel.rows[0].cells[0].isWall);
+       
         placeWalls();
-        randomOpeningLeft();
+        randomOpening();
     }
 
      //tilfeldig åpning i wall
-    function randomOpeningLeft(){
-        let randomOddRowIndexLeft = Math.floor( Math.random() * (size + size -1) / 2 ) * 2 +1; 
-        let randomOddRowIndexRight = Math.floor( Math.random() * (size + size -1) / 2 ) * 2 +1; 
-        // console.log(randomOddRowIndexRight);
+    function randomOpening(){
+        let randomOddRowIndexLeft = Math.floor( Math.random() * (numbers -1) / 2 ) * 2 +1; 
+        let randomOddRowIndexRight = Math.floor( Math.random() * (numbers -1) / 2 ) * 2 +1; 
         
          mazeModel.rows[randomOddRowIndexLeft].cells[0].isWall = false;
          mazeModel.rows[randomOddRowIndexRight].cells[numbers-1].isWall = false;
+        
      };
           
     function placeWalls(){
-            for (var wallCount = 0; wallCount < totalNumberOfWalls; wallCount++) {
+      walls = numbers + 100;
+            for (var wallCount = 0; wallCount < walls; wallCount++) {
                 var rowIndex = Math.floor(Math.random() * numbers);
                 var columnIndex = Math.floor(Math.random() * numbers);
                 var modelCell = mazeModel.rows[rowIndex].cells[columnIndex];
@@ -137,6 +139,8 @@ updateView();
                 if (!modelCell.isHigh) {modelCell.isWall = true};
                 
             }
+            
+            
     };
 
 
