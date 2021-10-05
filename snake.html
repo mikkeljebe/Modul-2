@@ -14,6 +14,12 @@
       font-family: Montserrat, sans-serif;
 
     }
+    p {
+      margin: 0;
+    }
+    h1 {
+      font-size: 2rem;
+    }
 
     table, tr, td{
       border: none;
@@ -56,19 +62,49 @@
       
     }
     .lost{
-      opacity: 0.2;
+      opacity: 0.4;
     }
 
-    button {
+    #winRestartBtn {
       position:absolute;
       width: 30vh;
       height: 20vh;
-      background-color: white;
-      font-size: large;
-      box-shadow: 0px 0px 18px -1px rgba(0,0,0,0.63);
+      background-color: green;
+      font-size: 1rem;
+      color: rgb(198, 235, 198);
+      box-shadow: 0px 0px 18px -1px rgba(128, 128, 128, 0.63);
+     
+
+      animation: win 0.1s ;
     }
+    #loseRestartBtn {
+      position:absolute;
+      width: 30vh;
+      height: 20vh;
+      background-color: rgb(255, 0, 0);
+      font-size: 1rem;
+      color: rgb(255, 255, 255);
+      box-shadow: 0px 0px 18px -1px rgba(128, 128, 128, 0.63);
+
+      animation: lose 0.1s ;
+    }
+    @keyframes lose {
+      0%   {opacity: 0; background: rgb(253, 253, 253); width: 0vh; height: 0vh;}
+  100% {opacity: 1; background: rgb(243, 23, 3); width: 30vh; height: 20vh;}
+    }
+
+    @keyframes win {
+      0%   {opacity: 0; background: rgb(253, 253, 253); width: 0vh; height: 0px;}
+  100% {opacity: 1; background: green; width: 30vh; height: 20vh;}
+    }
+    
     #info {
       padding: 20px;
+    }
+
+    .red {
+      color: rebeccapurple;
+      
     }
 
 
@@ -76,21 +112,25 @@
 </head>
 <body onkeydown="return controlSnake(event)">
   <div class="viewWrapper">
-    <div class="header"><h1>Spill snake!</h1> </div>
+    <div id="header" class="header"><h1>Spill snake!</h1> </div>
     <div class="gameWrapper">
       <table id="snakeTable"></table>
-      <button id="restartBtn" class="hidden" onclick="restart()"></button>
+      <button id="winRestartBtn" class="hidden" onclick="restart()"></button>
+      <button id="loseRestartBtn" class="hidden" onclick="restart()"></button>
+      <button id="levelUp" class="hidden"></button>
       <section id="info"></section>
     </div>
   </div>
   <script>
     const snakeTable = document.getElementById('snakeTable');
-    const butt = document.getElementById('restartBtn');
+    const loseButt = document.getElementById('loseRestartBtn');
+    const winButt = document.getElementById('winRestartBtn');
+    const header = document.getElementById('header');
     const info = document.getElementById('info');
     let snakeModel;
     let game = gameClosure();
     let levelUpText = '';
-    let buttonText =`Trykk her for å prøve igjen`;
+    let tryAgain =`Trykk for å prøve igjen`;
     
     initModel();
     updateView();
@@ -103,8 +143,7 @@
       snakeModel.growCount = 0;
       snakeModel.nextBodyPart = null;
       snakeModel.teller = 0;
-      
-      
+
     }
 
     function createRandomPosition(){
@@ -117,7 +156,11 @@
 
     function updateView(){
       snakeTable.innerHTML = '';
-      butt.innerHTML = `Du fikk ${snakeModel.teller} poeng. ${buttonText}`;
+      if (snakeModel.teller>4){
+      winButt.innerHTML = `<p style='font-size:100px';>&#x1F929;</p>Du fikk ${snakeModel.teller} poeng. <br>${tryAgain}`;
+      } else {
+        loseButt.innerHTML = `<p style='font-size:5rem';>&#x1F613;</p>Du fikk ${snakeModel.teller} poeng.<br>${tryAgain}`;
+      }
       info.innerHTML =`Du har ${snakeModel.teller} poeng. <br> ${levelUpText}`;
       
       for (let roWIndex =0; roWIndex<snakeModel.size; roWIndex++){
@@ -149,7 +192,8 @@
       || (snakeModel.snakeHead.y === (snakeModel.size-1) && snakeModel.direction.y > 0)){
         game.stop()
         snakeTable.classList.add('lost');
-        butt.classList.remove('hidden');
+        if (snakeModel.teller>4) {winButt.classList.remove('hidden')}
+        else {loseButt.classList.remove('hidden')}
         return {
         x: snakeModel.snakeHead.x,
         y: snakeModel.snakeHead.y,
@@ -168,11 +212,8 @@
     }
 
   function move(){
-    if (snakeModel.teller>4) {game.stop(); levelUp(); game.start(180);}
-    if (snakeModel.teller>10) {game.stop(); levelUp(); game.start(100);}
-    if (snakeModel.teller>20) {game.stop(); levelUp(); game.start(50);}
-    if (snakeModel.teller>20) {game.stop(); levelUp(); game.start(40);}
-    
+    levelUp();
+  
     if (!snakeModel.direction) return;
     snakeModel.snakeHead = creatNewSnakeHead();
     if (snakeModel.growCount > 0){
@@ -197,7 +238,6 @@
           snakeModel.growCount = 1;
           snakeModel.teller++;
     }
-    
     updateView();
   }
 
@@ -211,12 +251,11 @@
 
     function restart(){
       snakeTable.classList.remove('lost');
-      butt.classList.add('hidden');
+      winButt.classList.add('hidden');
+      loseButt.classList.add('hidden');
       snakeModel ='';
       initModel();
-      updateView();
-      console.log('gjort');
-      
+      updateView();      
     }
 
     function gameClosure() {
@@ -232,9 +271,19 @@
     }
 
     function levelUp(text){
-      // levelUpText = text;
+      if (snakeModel.teller ==4) {game.stop(); levelUpClass(); game.start(180); return;}
+      if (snakeModel.teller== 10) {game.stop(); levelUpClass(); game.start(100); return;}
+      if (snakeModel.teller ==20) {game.stop(); levelUpClass(); game.start(50); return;}
+      if (snakeModel.teller==25) {game.stop(); levelUpClass(); game.start(40); return;}
+    
+      header.innerHTML = `<h1>Spill snake!</h1>`
     }
 
+    function levelUpClass(){
+      header.innerHTML = `<h1 style="color: red;">Level Up!</h1>`;
+    
+  }
+    
 
 
   </script>
