@@ -4,19 +4,73 @@ const authorText = document.getElementById('author')
 const twitterBtn = document.getElementById('twitter')
 const newQuoteBtn = document.getElementById('new-quote')
 const loader = document.getElementById('loader')
+// eventlisteners
+newQuoteBtn.addEventListener('click', newQuote);
+twitterBtn.addEventListener('click', tweetQuote);
+
+// Model
+// Array to populate with getQuotesFromApi()
+let apiQuotes = [];
 
 
-// show loading
-function loading(){
+// on load
+getQuotesFromApi();
+
+async function getQuotesFromApi(){
+  showLoadingSpinner();
+  const apiUrl = 'https://type.fit/api/quotes';
+  try {
+    const response = await fetch(apiUrl);
+    apiQuotes = await response.json();
+    newQuote();
+  } catch (error){
+    console.log(error);
+  }
+}
+
+function newQuote(){
+  showLoadingSpinner();
+  // random quote from array
+  const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
+  populateHtml(quote);
+  removeLoadingSpinner();
+}
+
+ // Check if authorfield is blank and replace with unknown
+ function populateHtml(quote) {
+  if (!quote.author) {
+    authorText.textContent = 'Unknown'
+  } else {
+    authorText.textContent = quote.author
+  }
+  // check the quote length to determine styling
+  if (quote.text.length > 50) {
+    quoteText.classList.add('long-quote')
+  } else {
+    quoteText.classList.remove('long-quote')
+  }
+  quoteText.textContent = quote.text
+}
+
+function showLoadingSpinner(){
   loader.hidden = false;
   quoteContainer.hidden = true;
 }
 
-// hide loading
-function complete(){
+function removeLoadingSpinner(){
   quoteContainer.hidden = false;
   loader.hidden = true;
 }
+
+// tweet quote
+function tweetQuote(){
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
+  window.open(twitterUrl, '_blank');
+}
+
+
+
+
 // hente quotes fra Local quotesArray:
 // newQuote();
 
@@ -28,61 +82,4 @@ function complete(){
 // }
 
 
-function populateHtml(quote) {
-  if (!quote.author) {
-    authorText.textContent = 'Unknown'
-  } else {
-    authorText.textContent = quote.author
-  }
-  // check the quote length to determine styling
-  if (quote.text.length > 50) {
-    quoteText.classList.add('long-quote')
-  } else {
-    quoteText.classList.remove('long-quote')
 
-  }
-  quoteText.textContent = quote.text
-}
-
-// tweet quote
-function tweetQuote(){
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
-  window.open(twitterUrl, '_blank');
-}
-
-// evebtlisteners
-newQuoteBtn.addEventListener('click', newQuote);
-twitterBtn.addEventListener('click', tweetQuote);
-
-// hente quotes fra api: (var treigt, så jeg kommenterte ut.):
-
-let apiQuotes = [];
-
-// show new quote
-function newQuote(){
-  loading();
-  // random quote from array
-  const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
-  // Check if authorfield is blank and replace with unknown
-  populateHtml(quote)
-  // set quote, hide loader
-  quoteText.textContent = quote.text;
-  complete();
-}
-
-// get quotes from api
-async function getQuotes(){
-  loading();
-  const apiUrl = 'https://type.fit/api/quotes';
-  try {
-    const response = await fetch(apiUrl);
-    apiQuotes = await response.json();
-    newQuote();
-  } catch (error){
-    // catch error
-  }
-}
-
-
-// on load
-getQuotes();
