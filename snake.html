@@ -271,12 +271,16 @@
     }
 
     function levelUp(text){
-      if (snakeModel.teller ==4) {game.stop(); levelUpClass(); game.start(180); return;}
-      if (snakeModel.teller== 10) {game.stop(); levelUpClass(); game.start(100); return;}
-      if (snakeModel.teller ==20) {game.stop(); levelUpClass(); game.start(50); return;}
-      if (snakeModel.teller==25) {game.stop(); levelUpClass(); game.start(40); return;}
-    
-      header.innerHTML = `<h1>Spill snake!</h1>`
+      
+        switch (snakeModel.teller) {
+            case 4: game.stop(); levelUpClass(); game.start(180); break;
+            case 10: game.stop(); levelUpClass(); game.start(100); break;
+            case 20: game.stop(); levelUpClass(); game.start(70); break;
+            case 30: game.stop(); levelUpClass(); game.start(50); break;
+           
+            
+            default: header.innerHTML = `<h1>Spill snake!</h1>`;
+        }
     }
 
     function levelUpClass(){
