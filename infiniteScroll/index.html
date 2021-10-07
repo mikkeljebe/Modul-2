@@ -11,8 +11,9 @@
     <!-- tittel -->
     <h1>Unsplash api search & Infinite scroll</h1>
     <div class="search">
-    <input type="text" oninput="searchInput = this.value">
-    <button onclick="searchPhotos()">Search</button>
+        <label for="search">Search:</label>
+    <input type="text" name="search" oninput="searchInput = this.value" onchange="searchPhotos()">
+    
 </div>
 
     <!-- loader -->

@@ -22,9 +22,8 @@ button {
 
 }
 .search {
-  display: flex;
-  margin: 10px 37%;
-  justify-content:space-evenly
+  margin: 20px 0;
+  text-align: center;
 }
 
 /* loader */
@@ -45,7 +44,7 @@ button {
 }
 /* img-container */
 .img-container {
-  margin: 10px 30%;;
+  margin: 10px 30%;
 }
 
 .img-container img {
@@ -53,11 +52,20 @@ button {
   margin-top: 5px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 30px;
+  }
+  .img-container {
+    margin: 10px 20%;
+  }
+}
+
+@media screen and (max-width: 700px) {
   h1 {
     font-size: 25px;
   }
   .img-container {
-    margin: 10px;
+    margin: 10%;
   }
 }

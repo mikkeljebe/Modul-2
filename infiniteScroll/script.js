@@ -51,7 +51,7 @@ function displayPhotos() {
     const img = document.createElement('img');
     
     setAttributes(img, {
-      src: photo.urls.small,
+      src: photo.urls.regular,
       alt: photo.alt_description,
       title: photo.alt_description,
     } );
