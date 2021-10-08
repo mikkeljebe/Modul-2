@@ -1,6 +1,7 @@
 // 
 const imageContainer = document.getElementById('img-container');
 const loader = document.getElementById('loader');
+const search = document.getElementById('search');
 
 let ready = false;
 let searchInput = '';
@@ -9,9 +10,11 @@ let totalImages = 0;
 let photosArray = [];
 
 // unsplash API
-const count = '10' 
+const count = '30' 
 const apiKey = 'pXtjM6FJE2ohJXaj0BvYHYMvpn2ioGKMRZjz3W5bArk';
 
+// set focus to searchbar
+search.focus();
 
 // Check if all images were loaded
 function imageLoaded(){
