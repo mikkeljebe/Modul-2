@@ -1,5 +1,5 @@
 const videoElement = document.getElementById("video");
-const startButton = document.getElementById("button");
+const startButton = document.getElementById("startButton");
 const chooseButton = document.getElementById("chooseButton");
 
 // Promt user to select media strea, pass to video elemnet. then play
@@ -19,11 +19,11 @@ async function selectMediaStream() {
 chooseButton.addEventListener("click", selectMediaStream);
 startButton.addEventListener("click", async () => {
   // Disable button
-  button.disabled.true;
+  startButton.disabled.true;
   // Start pip
   await videoElement.requestPictureInPicture();
   // Reset button
-  button.disabled.false;
+  startButton.disabled.false;
 });
 // // on load
 // selectMediaStream();
