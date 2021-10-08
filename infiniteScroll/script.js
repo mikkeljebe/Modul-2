@@ -8,39 +8,61 @@ let searchInput = '';
 let imagesLoaded = 0;
 let totalImages = 0;  
 let photosArray = [];
+let isInitialLoad = true;
 
 // unsplash API
-const count = '30' 
+let initialCount = '5' 
 const apiKey = 'pXtjM6FJE2ohJXaj0BvYHYMvpn2ioGKMRZjz3W5bArk';
+let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${initialCount}&query=${searchInput}`;
 
 // set focus to searchbar
 search.focus();
 
+function updateApiuUrlWithNewCount(picCount){
+  apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${picCount}&query=${searchInput}`;
+
+}
+
 // Check if all images were loaded
 function imageLoaded(){
-  console.log(imagesLoaded);
-  
   imagesLoaded++;
-  if (imagesLoaded === totalImages){
-    ready = true;
-    loader.hidden = true;
-    console.log('ready =', ready);
-  }
-  
+if (imagesLoaded === totalImages){
+  ready = true;
+  loader.hidden = true;
 }
+
+}
+
+// Get photos from unsplash api
+async function getPhotos(){
+  try {
+    const response = await fetch(apiUrl);
+    photosArray = await response.json();
+    displayPhotos();
+    if (isInitialLoad){
+      updateApiuUrlWithNewCount(30);
+      isInitialLoad = false;
+
+    }
+    
+  } catch (error) {
+    console.log(error);
+    
+//  error here
+  }
+}
+
 // Hjelpefunksjon for setartributes to DOM elements 
 function setAttributes(element, attributes){
   for (const key in attributes) {
     element.setAttribute(key, attributes[key]);
   }
 }
-
 // create elements for links and photos, add to dom
 function displayPhotos() {
   imagesLoaded = 0;
   totalImages = photosArray.length;
-  console.log('total Images', totalImages);
-  
+    
   photosArray.forEach((photo) => {
     // create <a> to link to unsplash
     const item = document.createElement('a');
@@ -68,20 +90,8 @@ function displayPhotos() {
   });
 }
 
-// Get photos from unsplash api
-async function getPhotos(){
-  const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}&query=${searchInput}`;
-  try {
-    const response = await fetch(apiUrl);
-    photosArray = await response.json();
-    displayPhotos();
-    
-  } catch (error) {
-    console.log(error);
-    
-//  error here
-  }
-}
+
+
 
 // searchbutton
 function searchPhotos(){
