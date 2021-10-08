@@ -57,7 +57,7 @@ button:hover {
   box-shadow: #121212 0 0 0 1px, transparent 0 0 0 0;
 }
 button:active{
-  transform: translateY(1px);
+  transform: scale(0.98);
 }
 
 p {
