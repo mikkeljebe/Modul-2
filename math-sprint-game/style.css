@@ -28,7 +28,7 @@ body {
   width: 530px;
   height: 750px;
   position: relative;
-  background: rgba(255, 255, 255);
+  background: rgba(255, 255, 255, 0.3);
   user-select: none;
   margin-top: 100px;
 }
@@ -148,7 +148,7 @@ label {
 }
 
 .selected-item {
-  background: var(--select-color);
+  background: var(--primary-color);
   position: fixed;
   top: 443px;
   z-index: -1;

@@ -246,28 +246,37 @@ function populateGamePage() {
   equationsToDOM();
 
 
-  // Set Blank Space Below
+// Set Blank Space Below
   const bottomSpacer = document.createElement('div');
   bottomSpacer.classList.add('height-500');
   itemContainer.appendChild(bottomSpacer);
 }
 
-// Displays 3,2,1, go!
-function countdownStart(){
-  countdown.textContent = '3';
-  setTimeout(() => {countdown.textContent = '2';}, 500);
-  setTimeout(() => {countdown.textContent = '1';}, 1000);
-  setTimeout(() => {countdown.textContent = 'GO!';}, 1500);
-}
+//! Displays 3,2,1, go!
+function countdownTimer(){
+  let count = 5;
+  countdown.textContent = count;
+  const timeCountDown = setInterval(() => {
+    count--;
+    if (count === 0) {
+      countdown.textContent = 'Go!';
+    } else if (count === -1) {
+      showGamePage();
+      clearInterval(timeCountDown);
+    } else {
+      countdown.textContent = count;
+    }
+  }, 1000);
+};
 
 // Navigate from splash page to countdown page
 function showCountdown(){
   countdownPage.hidden = false;
   splashPage.hidden = true;
-  countdownStart();
   populateGamePage();
-  setTimeout(showGamePage, 2000);
+  countdownTimer();
 }
+
 // Get value from selected radio button
 function getRadioValue(){
   let radioValue;
