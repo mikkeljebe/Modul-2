@@ -79,7 +79,7 @@ nav li a::before {
   height: 3px;
   background-color: #fff;
   position: absolute;
-  top: 47.5%;
+  top: 45%;
   left: 40%;
   opacity: 0;
 }
@@ -191,6 +191,7 @@ section#home a {
   right: 7rem;
   text-decoration: none;
   font-size: 0.8rem;
+
   padding-bottom: 5px;
   color: var(--navColor3);
   border-bottom: 1px solid var(--primaryColor);
@@ -213,14 +214,32 @@ section#contact {
 }
 
 /* Media Query: Large Smartphone (Vertical) */
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   section#home a {
-    top: 1rem;
-    left: 1rem;
+  font-size: 1rem;
+    top: 1.2rem;
+    right: 5rem;
   }
+  .bar1,
+  .bar2,
+  .bar3 {
+  
+  background-color: rgb(168, 168, 168);
+}
 
   .menu-bars {
     top: 0.5rem;
     right: 1rem;
+  }
+
+  nav li a::before {
+    content: "";
+    width: 6vw;
+    height: 3px;
+    background-color: #fff;
+    position: absolute;
+    top: 45%;
+    left: 20%;
+    opacity: 0;
   }
 }
