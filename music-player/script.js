@@ -57,6 +57,7 @@ playBtn.setAttribute('title', 'Play');
   music.pause();
 }
 
+
 // Eventlisteners
 playBtn.addEventListener('click',()=>(isPlaying?pauseSong():playSong()));
 
