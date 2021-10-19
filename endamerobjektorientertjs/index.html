@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enda mer objektorientert</title>
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+    }
+    text {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 250%;
+    }
+  </style>
+</head>
+<html>
+<body>
+
+  <svg width="100%" height="50">
+    <rect x="0" y="0" width="100%" height="100%" fill="lightgray"></rect>
+    <text id="txtTerje" x="0" y="36" fi11="green">Terje</text>
+    <text id="txtMikkel" x="0" y="36" color="yellow">Mikkel</text>
+  </svg> 
+
+  <script>
+    let textTerje = document.getElementById('txtTerje');
+    let textMikkel = document.getElementById('txtMikkel');
+    let angle = 0;
+    setInterval(moveText, 30);
+
+    function moveText(input){
+      angle = (angle + 5) % 360;
+      let x = Math.round(40+40*Math.sin(Math.PI* angle/180));
+      textTerje.setAttribute('x', x + '%');
+    }
+  </script>
+  
+
+</body>  
+</html>
