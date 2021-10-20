@@ -7,12 +7,17 @@ const nav4 = document.getElementById('nav-4');
 const nav5 = document.getElementById('nav-5');
 const navItems = [nav1, nav2, nav3, nav4, nav5];
 
-// Control Navigation Animation 
-function navAnimation(direction1, direction2) {
-  navItems.forEach((nav, i) =>{
-    nav.classList.replace(`slide-${direction1}-${i+1}`, `slide-${direction2}-${i+1}`)
-  })
-}
+menuBars.addEventListener('click', toggleNav);
+navItems.forEach((nav)=>{
+  nav.addEventListener('click', toggleNav);
+});
+
+AOS.init({
+  delay: 100, // values from 0 to 3000, with step 50ms
+  duration: 1000, // values from 0 to 3000, with step 50ms
+  once: false, // whether animation should happen only once while scrolling down
+  mirror: false, // whether elements should animate out while scrolling past them
+});
 
 function toggleNav(){
   // toggle Menu bars open/closed
@@ -32,8 +37,9 @@ function toggleNav(){
   }
 }
 
-// Evnetlisteners
-menuBars.addEventListener('click', toggleNav);
-navItems.forEach((nav)=>{
-  nav.addEventListener('click', toggleNav);
-});
+// Control Navigation Animation 
+function navAnimation(direction1, direction2) {
+  navItems.forEach((nav, i) =>{
+    nav.classList.replace(`slide-${direction1}-${i+1}`, `slide-${direction2}-${i+1}`)
+  })
+}

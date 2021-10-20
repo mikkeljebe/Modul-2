@@ -21,22 +21,69 @@
 
   <svg width="100%" height="50">
     <rect x="0" y="0" width="100%" height="100%" fill="lightgray"></rect>
-    <text id="txtTerje" x="0" y="36" fi11="green">Terje</text>
-    <text id="txtMikkel" x="0" y="36" color="yellow">Mikkel</text>
+    <g id="texts"></g>
   </svg> 
 
-  <script>
-    let textTerje = document.getElementById('txtTerje');
-    let textMikkel = document.getElementById('txtMikkel');
-    let angle = 0;
-    setInterval(moveText, 30);
+<script>
+    let objects = [
+      {
+      speed: 1,
+      id: 'txtTerje',
+      color: 'green',
+      tittel: 'Terje',
+      },
+      {
+      speed: 2,
+      id: 'txtTurboTerje',
+      color: 'yellow',
+      tittel: 'Turbo',
+      },
+      {
+      speed: 3,
+      id: 'txtMikkel',
+      color: 'red',
+      tittel: 'Mikkel',
+      },
+      {
+      speed: 4,
+      id: 'txtMiel',
+      color: 'blue',
+      tittel: 'Mikel',
+      },
+    ];
 
-    function moveText(input){
-      angle = (angle + 5) % 360;
-      let x = Math.round(40+40*Math.sin(Math.PI* angle/180));
-      textTerje.setAttribute('x', x + '%');
+    init();
+    setInterval(move, 30);
+
+    function init(){
+      let texts = document.getElementById('texts');
+      for (let i in objects){
+        let object = objects[i];
+        object.angle = 0;
+        object.x = 0;
+        texts.innerHTML += `<text `
+        + `id="${object.id}" `
+        + `x="${object.x}" `
+        + `y="36" `
+        + `fill="${object.color}" `
+        + `>`
+        + `${object.tittel}`
+        + `</text>`;
+      }
+
     }
-  </script>
+
+    function move(input){
+      for (let i in objects) {
+        let object = objects[i];
+        let texter = document.getElementById(object.id);
+        object.angle = (object.angle + object.speed) % 360;
+        object.x = Math.round(40+40*Math.sin(Math.PI* object.angle/180));
+        texter.setAttribute('x', object.x + '%');
+        
+      }
+    }
+</script>
   
 
 </body>  

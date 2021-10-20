@@ -17,7 +17,6 @@ body {
   margin: 0;
   background: #000;
   font-family: Nunito, sans-serif;
-
 }
 
 /* --- Navigation Menu ------------------------------ */
@@ -80,7 +79,7 @@ nav li a::before {
   background-color: #fff;
   position: absolute;
   top: 45%;
-  left: 40%;
+  left: 30%;
   opacity: 0;
 }
 
@@ -108,28 +107,25 @@ nav li:nth-of-type(5){
 }
 
 /* Slide in animation  */
-.slide-in-1{animation: slide-in 0.4s linear 0.1s both;}
-.slide-in-2{animation: slide-in 0.4s linear 0.2s both;}
-.slide-in-3{animation: slide-in 0.4s linear 0.3s both;}
-.slide-in-4{animation: slide-in 0.4s linear 0.4s both;}
-.slide-in-5{animation: slide-in 0.4s linear 0.5s both;}
-
+.slide-in-1{animation: slide-in 0.1s linear 0.1s both;}
+.slide-in-2{animation: slide-in 0.1s linear 0.2s both;}
+.slide-in-3{animation: slide-in 0.1s linear 0.3s both;}
+.slide-in-4{animation: slide-in 0.1s linear 0.4s both;}
+.slide-in-5{animation: slide-in 0.1s linear 0.5s both;}
 @keyframes slide-in {from {transform: translateX(-100%);} to {transform: translateX(0);}}
 
 /* Slide OUT animation  */
-.slide-out-1{animation: slide-out 0.3s linear 0.5s both;}
-.slide-out-2{animation: slide-out 0.3s linear 0.4s both;}
-.slide-out-3{animation: slide-out 0.3s linear 0.3s both;}
-.slide-out-4{animation: slide-out 0.3s linear 0.2s both;}
-.slide-out-5{animation: slide-out 0.3s linear 0.1s both;}
-
+.slide-out-1{animation: slide-out 0.1s linear 0.5s both;}
+.slide-out-2{animation: slide-out 0.1s linear 0.5s both;}
+.slide-out-3{animation: slide-out 0.1s linear 0.5s both;}
+.slide-out-4{animation: slide-out 0.1s linear 0.5s both;}
+.slide-out-5{animation: slide-out 0.1s linear 0.5s both;}
 @keyframes slide-out {from {transform: translateX(0);} to {transform: translateX(-100%);}}
 
 /* --- Menu Bars ------------------------------------ */
-
 .menu-bars {
   position: fixed;
-  top: 1rem;
+  top: 1.5rem;
   right: 2rem;
   z-index: 10;
   display: inline;
@@ -148,19 +144,19 @@ nav li:nth-of-type(5){
 
 /* Rotate first bar */
 .change .bar1 {
-  transform: rotate(-90deg) translate(-22px, -12px);
+  transform: rotate(-90deg) translate(-11px, -12px);
 }
 
 /* Fade out the second bar */
 .change .bar2 {
   /* opacity: 0; */
-  transform: rotate(-90deg) translate(-11px, 0px);
+  transform: rotate(-90deg) translate(0px, 0px);
 
 }
 
 /* Rotate last bar */
 .change .bar3 {
-  transform: rotate(-90deg) translate(0px, 12px);
+  transform: rotate(-90deg) translate(11px, 12px);
 }
 
 /* --- Sections ------------------------------------ */
@@ -191,7 +187,6 @@ section#home a {
   right: 7rem;
   text-decoration: none;
   font-size: 0.8rem;
-
   padding-bottom: 5px;
   color: var(--navColor3);
   border-bottom: 1px solid var(--primaryColor);
@@ -199,6 +194,25 @@ section#home a {
 
 section#about {
   background-color: var(--navColor2);
+}
+
+section#about h1{
+  margin: 0 0 40px 0 ;
+}
+
+section#about .about-container{
+  display: flex;
+  gap: 30px;
+  margin: 20vw;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+section#about img {
+  border-radius: 1rem;
+  box-shadow: 0 15px 30px 5px rgba(0,0,0,0.3);
+  height:25vw;
+
 }
 
 section#skills {
@@ -223,7 +237,6 @@ section#contact {
   .bar1,
   .bar2,
   .bar3 {
-  
   background-color: rgb(168, 168, 168);
 }
 
