@@ -10,10 +10,12 @@
     body{
       font-family: helvetica, sans-serif;
     }
+
     table {
       border: 2px solid black;
       border-collapse: collapse;
     }
+
     tr, td, th {
       border: 1px solid black;
       border-collapse: collapse;
@@ -22,9 +24,19 @@
       height: 18px;
     }
 
+    tr.underline {
+      border-bottom: black 2px solid;
+    }
+    
     td.label {
       min-width: 100px;
     }
+
+    td.bold {
+      font-weight: bold;
+    }
+
+   
 
   </style>
 </head>
@@ -46,7 +58,11 @@
       for (let i = 0; i < model.length; i++){
         let row = model[i];
         let score = row.score;
-        html += `<tr><td class="label">${row.label}</td>`;
+        html += `<tr class="${row.label.underline}">
+                <td class="label ${row.label.bold} ">
+                  ${row.label.txt}</td>`;
+
+
         for (let j = 0; j<score.length; j++){
                 html += `<td>${score[j] || ''}</td>`
         }
