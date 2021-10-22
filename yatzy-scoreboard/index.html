@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yatzy scoreborad</title>
+  <style>
+
+    body{
+      font-family: helvetica, sans-serif;
+    }
+    table {
+      border: 2px solid black;
+      border-collapse: collapse;
+    }
+    tr, td, th {
+      border: 1px solid black;
+      border-collapse: collapse;
+      min-width: 50px;
+      padding: 4px;
+      height: 18px;
+    }
+
+    td.label {
+      min-width: 100px;
+    }
+
+  </style>
+</head>
+<body>
+<script src="./model.js"></script>
+
+  <div id="score-board"></div>
+  <script>
+    showBoard()
+    function showBoard(){
+      for (let i = 1; i< model.length; i++){
+        model[i].score = new Array(players);
+      }
+      model[11].score[2] = 18
+      model[15].score[1] = 18
+    
+      let html =`<table>`;
+
+      for (let i = 0; i < model.length; i++){
+        let row = model[i];
+        let score = row.score;
+        html += `<tr><td class="label">${row.label}</td>`;
+        for (let j = 0; j<score.length; j++){
+                html += `<td>${score[j] || ''}</td>`
+        }
+        html += `</tr>`;
+      }
+      html += `</table>`
+    
+    
+      document.getElementById('score-board').innerHTML = html;
+    }
+
+
+</script>
+
+</body>
+</html>
