@@ -215,11 +215,11 @@ section#about img {
 
 }
 
-section#skills {
+section#projects {
   background-color: var(--navColor3);
 }
 
-section#projects {
+section#skills {
   background-color: var(--navColor4);
 }
 

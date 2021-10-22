@@ -9,53 +9,12 @@
 
 </head>
 <body>
-  <!-- Menu overlay -->
-  <div class="overlay overlay-slide-left" id="overlay">
-    <!-- Menu items -->
-    <nav>
-      <ul>
-        <li id="nav-1" class="slide-out-1"><a href="#home">Home</a></li>
-        <li id="nav-2" class="slide-out-2"><a href="#about">About</a></li>
-        <li id="nav-3" class="slide-out-3"><a href="#skills">Skills</a></li>
-        <li id="nav-4" class="slide-out-4"><a href="#projects">Projects</a></li>
-        <li id="nav-5" class="slide-out-5"><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-<!-- Menu bars -->
-  <div class="menu-bars" id="menu-bars">
-    <div class="bar1"></div>
-    <div class="bar2"></div>
-    <div class="bar3"></div>
-  </div>
 
-<!-- Sections -->
-  <section id="home">
-    <a href="" target="_blank">Mikkel</a>
-  </section>
-  <section id="about">
-    <div class="about-container">
-      <div data-aos="fade-right" data-aos-delay="600" class="text-box-container">
-      <h1>About Me</h1>
-      <div class="about-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla, quis nam illo sit reiciendis neque molestias unde nihil et? Quasi deserunt quam ut tempore vel obcaecati totam, amet adipisci velit</div>
-      </div>
-      <div data-aos="fade-left" class="pic-container">
-        <img src="./pics/mikkprtr.jpeg" alt="">
-        <div class="pic-container-text"></div>
-      </div>
-    </div>
-  </section>
-  <section id="skills">
-    <h1 data-aos="fade-in" >These Are My Strengths</h1>
-  </section>
-  <section id="projects">
-    <h1 data-aos="fade-up"  data-aos-anchor-placement="top-bottom">These Are My Results</h1>
-  </section>
-  <section id="contact">
-    <h1 data-aos="zoom-out">Available Anytime</h1>
-  </section>
-
+  <div id="app"></div> 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
-  <script src="script.js"></script>
+  <script src="model.js"></script>
+  <script src="controller.js"></script>
+  <script src="view.js"></script>
+  <script>updateView();</script>
 </body>
 </html>
