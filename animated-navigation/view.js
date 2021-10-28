@@ -4,20 +4,20 @@ function updateView(){
  let html = `
 
  <!-- Menu overlay -->
-  <div class="overlay overlay-slide-left" id="overlay">
+  <div class="overlay ${model.class.overlay} overlay-slide-${model.class.overlaySlide}">
     <!-- Menu items -->
     <nav>
       <ul>
-        <li id="nav-1" onclick="toggleNav()" class="slide-out-1"><a href="#home">Home</a></li>
-        <li id="nav-2" onclick="toggleNav()" class="slide-out-2"><a href="#about">About</a></li>
-        <li id="nav-3" onclick="toggleNav()" class="slide-out-3"><a href="#projects">Projects</a></li>
-        <li id="nav-4" onclick="toggleNav()" class="slide-out-4"><a href="#skills">Skills</a></li>
-        <li id="nav-5" onclick="toggleNav()" class="slide-out-5"><a href="#contact">Contact</a></li>
+        <li id="nav-1" onclick="toggleNav()" class="slide-${model.class.slide}-1"><a href="#home">Home</a></li>
+        <li id="nav-2" onclick="toggleNav()" class="slide-${model.class.slide}-2"><a href="#about">About</a></li>
+        <li id="nav-3" onclick="toggleNav()" class="slide-${model.class.slide}-3"><a href="#projects">Projects</a></li>
+        <li id="nav-4" onclick="toggleNav()" class="slide-${model.class.slide}-4"><a href="#skills">Skills</a></li>
+        <li id="nav-5" onclick="toggleNav()" class="slide-${model.class.slide}-5"><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </div>
 <!-- Menu bars -->
-  <div class="menu-bars" id="menu-bars" onclick="toggleNav()">
+  <div class="menu-bars ${model.class.menuBars}" onclick="toggleNav()">
     <div class="bar1"></div>
     <div class="bar2"></div>
     <div class="bar3"></div>
@@ -25,7 +25,7 @@ function updateView(){
 
 <!-- Sections -->
   <section id="home" >
-    <a href="#contact" target="#contact">Mikkel</a>
+    <a href="#contact">Mikkel</a>
   </section>
   <section id="about">${aboutHtml()}</section>
   <section id="projects">${projectsHtml()}</section>
@@ -65,6 +65,17 @@ function aboutHtml(){
 function projectsHtml(){
   let html = `
 <h1 data-aos="fade-up" data-aos-anchor-placement="top-bottom">Prosjekter</h1>
+<div class="wrapper">
+  <div class="searchBar">
+    <input id="searchQueryInput" autocomplete="off" onchange="search(this.value)" type="text" name="searchQueryInput" placeholder="Søk.." value="${model.searchQuery}"/>
+    <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+      </svg>
+    </button>
+  </div>
+  <div class="searchDropdown-content">${model.result || ''}</div>
+     </div>
+</div>
 `;
 return html;
 }

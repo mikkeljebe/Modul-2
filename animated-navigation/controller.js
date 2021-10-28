@@ -1,37 +1,50 @@
 
 function toggleNav(){
-  const menuBars = document.getElementById('menu-bars');
-  const overlay = document.getElementById('overlay');
-
-  
+  model.class.overlay
   // toggle Menu bars open/closed
-  menuBars.classList.toggle('change');
+  if ( model.class.menuBars == 'turn') {model.class.menuBars = 'turn-back'} else {model.class.menuBars = 'turn'};
   // Toggle: menu active 
-  overlay.classList.toggle('overlay-active');
-  if(overlay.classList.contains('overlay-active')){
+  if ( model.class.overlay == '') {model.class.overlay = 'overlay-active'} else {model.class.overlay = ''};
+
+  if(model.class.overlay == 'overlay-active'){
     // Animate in - overlay
-    overlay.classList.replace('overlay-slide-left', 'overlay-slide-right')
+    model.class.overlaySlide = 'right';
     // Animate in - nav items
     navAnimation('out', 'in');
   } else {
     // Animate out overlay
-    overlay.classList.replace('overlay-slide-right', 'overlay-slide-left')
+    model.class.overlaySlide = 'left';
     // Animate out - nav items
     navAnimation('in', 'out');
   }
+  updateView();
 }
 
 // Control Navigation Animation 
-function navAnimation(direction1, direction2) {
-  const nav1 = document.getElementById('nav-1')
-  const nav2 = document.getElementById('nav-2')
-  const nav3 = document.getElementById('nav-3')
-  const nav4 = document.getElementById('nav-4')
-  const nav5 = document.getElementById('nav-5')
-  const navItems = [nav1, nav2, nav3, nav4, nav5]
-  navItems.forEach((nav, i) =>{
-    nav.classList.replace(`slide-${direction1}-${i+1}`, `slide-${direction2}-${i+1}`)
-  })
+function navAnimation(direction2, direction1) {
+  if ( model.class.slide == direction2) {model.class.slide = direction1} else {model.class.slide = direction2};
 }
 
+function search(searchTerm){
+  model.searchQuery = searchTerm;
+    let filteredData = linker
+    .filter(elements => elements.tittel && elements.link)
+    .filter(element => 
+      element.link.toLowerCase().includes(searchTerm.toLowerCase())|| 
+      element.tittel.toLowerCase().includes(searchTerm.toLowerCase()));
+
+  model.result = `<ul id="myUL">`;
+  for (let i = 0; i < filteredData.length; i++) {
+    model.result +=  `<li class="a"><a href="${filteredData[i].link}">${filteredData[i].tittel}</a></li>`;
+  };
+  
+  if (filteredData.length == 0) {
+    model.result +=  `<li">Ingen treff</li>`;
+  };
+
+  model.result += `</ul>`;
+  console.log(model.result);
+  
+  updateView();
+};
 
