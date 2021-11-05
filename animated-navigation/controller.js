@@ -1,10 +1,12 @@
 
-function toggleNav(){
-  model.class.overlay
+function toggleNav() {
+
   // toggle Menu bars open/closed
-  if ( model.class.menuBars == 'turn') {model.class.menuBars = 'turn-back'} else {model.class.menuBars = 'turn'};
+  if (model.class.menuBars == 'turn') { model.class.menuBars = 'turn-back';
+  } else { model.class.menuBars = 'turn';};
+  
   // Toggle: menu active 
-  if ( model.class.overlay == '') {model.class.overlay = 'overlay-active'} else {model.class.overlay = ''};
+  if (model.class.overlay == '') { model.class.overlay = 'overlay-active'; } else { model.class.overlay = ''; };
 
   if(model.class.overlay == 'overlay-active'){
     // Animate in - overlay
@@ -21,17 +23,27 @@ function toggleNav(){
 }
 
 // Control Navigation Animation 
-function navAnimation(direction2, direction1) {
-  if ( model.class.slide == direction2) {model.class.slide = direction1} else {model.class.slide = direction2};
+function navAnimation(direction1, direction2) {
+  if (model.class.slide == '') { model.class.slide = direction1 };
+  if (model.class.slide == direction1) { model.class.slide = direction2 } else { model.class.slide = direction1 };
+  setTimeout(function () {model.class.slide = "";}, 1000);
 }
 
-function search(searchTerm){
+function search(searchTerm) {
+    let filteredData = linker;
   model.searchQuery = searchTerm;
-    let filteredData = linker
-    .filter(elements => elements.tittel && elements.link)
-    .filter(element => 
-      element.link.toLowerCase().includes(searchTerm.toLowerCase())|| 
-      element.tittel.toLowerCase().includes(searchTerm.toLowerCase()));
+  console.log('kjørere');
+  
+
+  if (searchTerm.length > 0) {
+    filteredData = linker
+      .filter(elements => elements.tittel && elements.link)
+      .filter(element =>
+        element.link.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        element.tittel.toLowerCase().includes(searchTerm.toLowerCase())); 
+  }
+  console.log(filteredData);
+
 
   model.result = `<ul id="myUL">`;
   for (let i = 0; i < filteredData.length; i++) {
@@ -43,8 +55,8 @@ function search(searchTerm){
   };
 
   model.result += `</ul>`;
-  console.log(model.result);
   
   updateView();
 };
+
 
