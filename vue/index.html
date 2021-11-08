@@ -4,22 +4,80 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random user generator</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 <body>
-  <div id="app">
-    <img 
-    :class="gender" 
-    v-bind:src="picture" 
-    :alt="`${firstName} ${lastName}`">
-    <h1>Hello {{firstName}} {{lastName}}</h1>
-    <h3>Email: {{email}}</h3>
-    <button v-on:click="getUser()" 
-    :class="gender">Get random User</button>
-  </div>
 
-  <script src="https://unpkg.com/vue@next"></script>
-  <script src="app.js"></script>
+<div id="main">
+  <p>Counter: {{ counter }} </p>
+  <hr>
+
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds to see my dynamically bound
+    title!
+  </span>
+  <hr>
+  
+    <p>{{ message2 }}</p>
+    <button v-on:click="reverseMessage">Reverse Message</button>
+  <hr>
+
+  <p>{{ message3 }}</p>
+  <input v-model="message3" />
+  <hr>
+<span v-if="seen">Now you see me</span>
+
+  <hr>
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+  <hr>
+</div>
+
+
+<script>
+ 
+  const Diverse = {
+      data() {
+        return {
+          counter: 0,
+          message: 'You loaded this page on ' + new Date().toLocaleString(),
+          message2: 'Hello Vue.js!',
+          message3: 'Hello Vue!',
+          seen: true,
+          todos: [
+            { text: 'Learn JavaScript' },
+            { text: 'Learn Vue' },
+            { text: 'Build something awesome' },
+            { text: this.counter }
+          ],
+
+        }
+      },
+      mounted() {
+        setInterval(() => {
+          this.counter++
+        }, 1000)
+      },
+      methods: {
+        reverseMessage() {
+          this.message2 = this.message2
+            .split('')
+            .reverse()
+            .join('')
+        },
+      }
+  
+    }
+
+  Vue.createApp(Diverse).mount('#main');
+
+</script>
+  
 </body>
 </html>
+
