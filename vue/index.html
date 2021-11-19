@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue@next"></script>
 
 </head>
 <body>
@@ -27,7 +27,7 @@
   <p>{{ message3 }}</p>
   <input v-model="message3" />
   <hr>
-<span v-if="seen">Now you see me</span>
+<span v-if="seen" v-on:click="seenToggle">Now you see me - click to remove</span>
 
   <hr>
   <ol>
@@ -50,7 +50,7 @@
           message3: 'Hello Vue!',
           seen: true,
           todos: [
-            { text: 'Learn JavaScript' },
+            { id: this.counter, text: 'Learn JavaScript' },
             { text: 'Learn Vue' },
             { text: 'Build something awesome' },
             { text: this.counter }
@@ -70,10 +70,12 @@
             .reverse()
             .join('')
         },
+        seenToggle() {
+          this.seen = false
       }
-  
     }
 
+  }
   Vue.createApp(Diverse).mount('#main');
 
 </script>
